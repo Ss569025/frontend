@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix My Hostel - Progress Page</title>
+    <style>
+        /* Resetting margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body with a lavender gradient background */
+        body {
+            background: linear-gradient(135deg, #e6e6fa, #d8bfd8); /* Light lavender gradient */
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Profile Circle */
+        .profile-circle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #9370DB; /* Medium Purple */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-circle:hover {
+            background-color: #6A5ACD; /* SlateBlue on hover */
+            transform: scale(1.1);
+        }
+
+        /* Dropdown Menu for Profile */
+        .profile-menu {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 150px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .profile-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Title Section */
+        h1 {
+            color: #6A5ACD; /* SlateBlue */
+            margin-bottom: 20px;
+            font-size: 36px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Instructions Section */
+        .instructions {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 700px;
+            border-left: 5px solid #9370DB; /* Accent border */
+        }
+
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #6A5ACD; /* SlateBlue */
+        }
+
+        .instructions p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Create Complaint Button */
+        .complaint-btn {
+            background-color: #9370DB; /* Medium Purple */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .complaint-btn:hover {
+            background-color: #6A5ACD; /* SlateBlue on hover */
+            transform: translateY(-3px);
+        }
+
+        /* Flex container to align Job Progress and Warden Approval side by side */
+        .progress-warden-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Progress Container */
+        .progress-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .progress-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .progress-container h2 {
+            margin-bottom: 20px;
+            color: #6A5ACD; /* SlateBlue */
+        }
+
+        .progress-bar {
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 30px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            background-color: #6A5ACD;
+            height: 100%;
+            width: 0;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+
+        /* Warden Approval Status */
+        .warden-status {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .warden-status:hover {
+            transform: translateY(-5px);
+        }
+
+        .warden-status h2 {
+            margin-bottom: 20px;
+            color: #6A5ACD; /* SlateBlue */
+        }
+
+        .status-box {
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-box.pending {
+            background-color: #FFEB99; /* Light Yellow for pending */
+            color: #C18A00; /* Dark yellow for text */
+        }
+
+        .status-box.approved {
+            background-color: #DFF2BF; /* Light green for approved */
+            color: #4F8A10; /* Dark green for text */
+        }
+
+        .status-box.rejected {
+            background-color: #FBCBCB; /* Light red for rejected */
+            color: #D8000C; /* Dark red for text */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Circle -->
+    <div class="profile-circle" onclick="toggleMenu()">JD</div>
+
+    <!-- Profile Dropdown Menu -->
+    <div id="profile-menu" class="profile-menu">
+        <a href="#">Home</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <!-- Title -->
+    <h1>Fix My Hostel</h1>
+
+    <!-- Instructions Section -->
+    <div class="instructions">
+        <h3>Instructions</h3>
+        <p>
+            The "Fix My Hostel" dashboard allows you to report maintenance issues, such as carpentry or plumbing problems. Simply fill in the necessary details, submit the request, and our system will handle the rest. You can track the progress of your request here and see when it has been successfully conveyed to both the warden and the concerned personnel.
+        </p>
+    </div>
+
+    <!-- Create Complaint Button -->
+    <button class="complaint-btn" onclick="location.href='hostel-dashboard.html'">Create a Complaint</button>
+
+    <!-- Progress and Warden Approval Container -->
+    <div class="progress-warden-container">
+        <!-- Progress Container -->
+        <div class="progress-container">
+            <h2>Job Progress</h2>
+            <div class="progress-bar">
+                <div id="progress" class="progress" style="width: 0%;">0%</div>
+            </div>
+            <div id="message" class="message"></div>
+        </div>
+
+        <!-- Warden Approval Status -->
+        <div class="warden-status">
+            <h2>Warden Approval Status</h2>
+            <div id="status-box" class="status-box pending">Awaiting Approval...</div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle the dropdown menu
+        function toggleMenu() {
+            var menu = document.getElementById("profile-menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        // Simulate progress and approval status
+        function simulateProgress() {
+            let progress = 0;
+            const progressBar = document.getElementById('progress');
+            const statusBox = document.getElementById('status-box');
+
+            const progressInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    // Simulate Warden Approval
+                    simulateWardenApproval();
+                } else {
+                    progress += 10;
+                    progressBar.style.width = progress + '%';
+                    progressBar.textContent = progress + '%';
+                }
+            }, 500); // Increment every 0.5 seconds
+        }
+
+        // Simulate Warden Approval
+        function simulateWardenApproval() {
+            const statusBox = document.getElementById('status-box');
+
+            setTimeout(() => {
+                const isApproved = Math.random() > 0.5; // Randomly decide approval
+                if (isApproved) {
+                    statusBox.className = 'status-box approved';
+                    statusBox.textContent = 'Approved by Warden ✔️';
+                } else {
+                    statusBox.className = 'status-box rejected';
+                    statusBox.textContent = 'Rejected by Warden ❌';
+                }
+            }, 2000); // Wait 2 seconds to simulate approval time
+        }
+
+        // Call the simulateProgress function on page load
+        window.onload = simulateProgress;
+    </script>
+
+</body>
+</html>
