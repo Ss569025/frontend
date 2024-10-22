@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIX MY HOSTEL</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background and Font */
+        body {
+            background-color: #E6E6FA; /* Lavender background */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Dashboard Container */
+        .dashboard {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Dashboard Title */
+        .dashboard h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6A5ACD; /* SlateBlue color */
+        }
+
+        /* Profile Section */
+        .profile {
+            background-color: #9370DB; /* Medium Purple */
+            padding: 15px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile p {
+            margin: 5px 0;
+        }
+
+        /* Form Styling */
+        .request-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        select, textarea, input[type="submit"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #f8f9fa;
+        }
+
+        input[type="submit"] {
+            background-color: #6A5ACD; /* SlateBlue color */
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #836FFF; /* Light SlateBlue */
+        }
+
+        /* Form Section Styling */
+        .form-section {
+            background-color: rgba(245, 245, 245, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h3 {
+            margin-bottom: 10px;
+            color: #6A5ACD; /* SlateBlue color */
+        }
+
+        /* Priority Selector Styles */
+        .priority {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .priority label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .priority input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Profile Section -->
+        <div class="profile">
+            <h2>Welcome, User</h2>
+            <p>Profile Name: Swasthika S</p>
+            <p>Hostel Block: G BLOCK</p>
+            <p>Room No: 101</p>
+        </div>
+
+        <!-- Request Form -->
+        <div class="form-section">
+            <h3>Maintenance Request</h3>
+            <form class="request-form" action="/" method="post">
+                <!-- Service Type -->
+                <label for="service_type">Select Service Type:</label>
+                <select id="service_type" name="service_type" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="carpentry">Carpentry</option>
+                    <option value="plumbing">Plumbing</option>
+                </select>
+
+                <!-- Problem Description -->
+                <label for="description">Problem Description:</label>
+                <textarea id="description" name="description" rows="4" placeholder="Describe the issue" required></textarea>
+
+                <!-- Process Begin Date -->
+                <label for="start_date">Process Begin Date:</label>
+                <input type="date" id="start_date" name="start_date" required>
+
+                <!-- Expected Completion Date -->
+                <label for="completion_date">Expected Completion Date:</label>
+                <input type="date" id="completion_date" name="completion_date" required>
+
+                <!-- Priority Selection -->
+                <label for="priority">Priority:</label>
+                <div class="priority">
+                    <label><input type="radio" name="priority" value="low" required> Low</label>
+                    <label><input type="radio" name="priority" value="medium"> Medium</label>
+                    <label><input type="radio" name="priority" value="high"> High</label>
+                </div>
+
+                <!-- Submit Button -->
+                <input type="submit" value="Submit Request">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
