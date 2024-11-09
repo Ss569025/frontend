@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix My Hostel - Warden Dashboard</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Main Layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #6A5ACD;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #836FFF;
+        }
+
+        /* Inbox Panel */
+        .inbox {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #e6e6fa;
+        }
+
+        .inbox h1 {
+            color: #6A5ACD;
+            margin-bottom: 20px;
+        }
+
+        .request-list {
+            list-style-type: none;
+            width: 100%;
+            padding: 0;
+        }
+
+        .request-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .request-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Request Details */
+        .request-details {
+            flex: 2;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .request-details.active {
+            display: block;
+        }
+
+        .request-details h3 {
+            color: #6A5ACD;
+            margin-bottom: 10px;
+        }
+
+        .request-details p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* Approval Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .approve-btn, .reject-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .approve-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background-color: #45A049;
+        }
+
+        .reject-btn {
+            background-color: #F44336;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background-color: #E53935;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Welcome, Warden</h2>
+        <a href="#" onclick="filterRequests('all')">Inbox</a>
+        <a href="#" onclick="filterRequests('approved')">Approved Requests</a>
+        <a href="#" onclick="filterRequests('rejected')">Rejected Requests</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <!-- Main Inbox Panel -->
+    <div class="inbox">
+        <h1>Fix My Hostel - Inbox</h1>
+        <ul class="request-list" id="request-list">
+            <!-- Requests will be dynamically populated here -->
+        </ul>
+    </div>
+
+    <!-- Request Details Section -->
+    <div class="request-details" id="request-details">
+        <h3 id="request-title">Request from Student</h3>
+        <p><strong>Service Type:</strong> <span id="service-type">Carpentry</span></p>
+        <p><strong>Student Name:</strong> <span id="student-name">Swasthika S</span></p>
+        <p><strong>Hostel Block:</strong> <span id="hostel-block">G Block</span></p>
+        <p><strong>Room Number:</strong> <span id="room-number">101</span></p>
+        <div class="action-buttons">
+            <button class="approve-btn" onclick="approveRequest()">Approve</button>
+            <button class="reject-btn" onclick="rejectRequest()">Reject</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for requests
+        const requests = [
+            { id: 1, serviceType: "Carpentry", studentName: "Swasthika", hostelBlock: "G Block", roomNumber: "101", status: "pending" },
+            { id: 2, serviceType: "Plumbing", studentName: "Ramya Prabha", hostelBlock: "F Block", roomNumber: "202", status: "pending" },
+            { id: 3, serviceType: "Electrical", studentName: "Sakthi", hostelBlock: "E Block", roomNumber: "303", status: "pending" }
+        ];
+
+        // Populate request list
+        const requestList = document.getElementById("request-list");
+        const requestDetails = document.getElementById("request-details");
+
+        function loadRequests() {
+            requestList.innerHTML = "";
+            requests.forEach(request => {
+                if (request.status === "pending") {
+                    const listItem = document.createElement("li");
+                    listItem.className = "request-item";
+                    listItem.textContent = `${request.studentName} - ${request.serviceType}`;
+                    listItem.onclick = () => showRequestDetails(request);
+                    requestList.appendChild(listItem);
+                }
+            });
+        }
+
+        // Show details of a request
+        function showRequestDetails(request) {
+            document.getElementById("service-type").textContent = request.serviceType;
+            document.getElementById("student-name").textContent = request.studentName;
+            document.getElementById("hostel-block").textContent = request.hostelBlock;
+            document.getElementById("room-number").textContent = request.roomNumber;
+            requestDetails.classList.add("active");
+        }
+
+        // Approve request
+        function approveRequest() {
+            updateRequestStatus("approved");
+        }
+
+        // Reject request
+        function rejectRequest() {
+            updateRequestStatus("rejected");
+        }
+
+        // Update request status
+        function updateRequestStatus(status) {
+            const currentRequest = requests.find(r => r.studentName === document.getElementById("student-name").textContent);
+            if (currentRequest) {
+                currentRequest.status = status;
+                loadRequests();
+                requestDetails.classList.remove("active");
+            }
+        }
+
+        // Filter requests based on status
+        function filterRequests(status) {
+            requestList.innerHTML = "";
+            requests.filter(request => status === "all" || request.status === status)
+                    .forEach(request => {
+                const listItem = document.createElement("li");
+                listItem.className = "request-item";
+                listItem.textContent = `${request.studentName} - ${request.serviceType}`;
+                listItem.onclick = () => showRequestDetails(request);
+                requestList.appendChild(listItem);
+            });
+        }
+
+        // Initialize requests on page load
+        window.onload = loadRequests;
+    </script>
+</body>
+</html>
