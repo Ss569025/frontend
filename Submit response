@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Submitted - Fix My Hostel</title>
+    <style>
+        /* Resetting styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e6e6fa, #d8bfd8);
+            color: #333;
+        }
+
+        /* Container for the message */
+        .response-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Heading styling */
+        .response-container h1 {
+            color: #6A5ACD;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        /* Subtitle styling */
+        .response-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Icon styling */
+        .response-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        /* Quote styling */
+        .quote {
+            font-style: italic;
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Home button styling */
+        .home-btn {
+            background-color: #6A5ACD;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-btn:hover {
+            background-color: #836FFF;
+            transform: translateY(-3px);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Response Container -->
+    <div class="response-container">
+        <div class="response-icon">✅</div>
+        <h1>Response Submitted!</h1>
+        <p>Your request has been successfully submitted and will be reviewed shortly.</p>
+        <p class="quote">"The warden has been notified of your response. Your concern is our priority!"</p>
+        <a href="index.html" class="home-btn">Go to Home</a>
+    </div>
+
+</body>
+</html>
